@@ -1,0 +1,51 @@
+h1 {
+  font-family: "Pacifico", cursive;
+  font-size: 45px;
+  position: relative;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}
+h1::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 35%;
+  left: 0;
+  bottom: 0px;
+  background-color: #fec260;
+  transition: height 350ms;
+  z-index: -1;
+}
+
+h1:hover::before {
+  height: 70%;
+}
+
+body {
+  background-color: #f7ecde;
+  font-family: "PT Sans Caption", sans-serif;
+}
+
+.inner-div {
+  border-top: 1px dotted;
+  border-bottom: 1px dotted;
+}
+
+h2 {
+  background-image: linear-gradient(to right, #3ca55c, #b5ac49);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
+  font-weight: 500;
+  font-family: "Righteous", sans-serif;
+}
+
+h2 .left {
+  color: #3ea55c;
+}
+h2 .right {
+  color: #b4ac49;
+}
