@@ -14,7 +14,9 @@ if (localStorage.getItem("allData") != null) {
 
 // add New data
 function addNewData() {
-  if (validateSiteName() == true && validateSiteUrl() == true) {
+  var siteNameValidation = validateSiteName();
+  var siteUrlValidation = validateSiteUrl();
+  if (siteNameValidation.valid && siteUrlValidation.valid) {
     var Data = {
       siteName: siteNameInput.value,
       siteUrl: siteUrlInput.value,
@@ -26,16 +28,16 @@ function addNewData() {
 
       displayAllData();
     } else {
+      //Update existing Data
       allData[temp] = Data;
       Submit.innerHTML = "Submit";
+      mainBtn = "submit";
       localStorage.setItem("allData", JSON.stringify(allData));
       displayAllData();
     }
     clearInputs();
   } else {
-    alert(
-      "Site name must contain at least 3 characters \nSite URL must start with (www.) to be a valid one"
-    );
+    alert(siteNameValidation.error + "\n" + siteUrlValidation.error);
   }
 }
 
@@ -87,16 +89,22 @@ function displayAllData() {
 
 // Validation for site Name
 function validateSiteName() {
-  var nameRegex = /^[a-zA-Z0-9-]{3,}/;
-
-  return nameRegex.test(siteNameInput.value);
+  var nameRegex = /^[a-zA-Z0-9-]{3,}$/;
+  var isValid = nameRegex.test(siteNameInput.value);
+  return {
+    valid: isValid,
+    error: isValid ? "" : "Site name must contain at least 3 characters.",
+  };
 }
 
 // Validation for site URL
 function validateSiteUrl() {
-  var UrlRegex = /^(www\.)[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
-
-  return UrlRegex.test(siteUrlInput.value);
+  var urlRegex = /^(www\.)[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+  var isValid = urlRegex.test(siteUrlInput.value);
+  return {
+    valid: isValid,
+    error: isValid ? "" : 'Site URL must start with "www." to be valid.',
+  };
 }
 
 // Edit data button
